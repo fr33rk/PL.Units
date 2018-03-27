@@ -49,6 +49,7 @@
     <Compile Include="LengthMetricTests.cs" />
     <Compile Include="LengthTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QuantityTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

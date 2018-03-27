@@ -55,11 +55,11 @@ namespace PL.Units
 
 		protected double GetValueFromString(string asString)
 		{
-			var values = Regex.Matches(asString, @"\A-?\d*[.,]?\d+");
+			var values = Regex.Matches(asString, @"\A-?\d*[.,]?\d+(e[+-]\d+)?");
 			if (values.Count == 1)
 			{
 				var valueAsString = values[0].Value;
-				valueAsString.Replace(',', '.');
+				valueAsString = valueAsString.Replace(',', '.');
 				return Convert.ToDouble(valueAsString, CultureInfo.InvariantCulture);
 			}
 
