@@ -7,6 +7,8 @@ namespace PL.Units
 {
 	public class LengthMetric : Length
 	{
+		#region Definitions
+
 		public enum MetricPrefix
 		{
 			Exa,
@@ -28,25 +30,25 @@ namespace PL.Units
 			Atto
 		}
 
-		public static Dictionary<MetricPrefix, double> MetricPrefixFactors = new Dictionary<MetricPrefix, double>()
+		public static Dictionary<ushort, double> MetricPrefixFactors = new Dictionary<ushort, double>()
 		{
-			{ MetricPrefix.Exa, 10e18 },
-			{ MetricPrefix.Peta, 10e15},
-			{ MetricPrefix.Tera, 10e12 },
-			{ MetricPrefix.Giga, 10e9 },
-			{ MetricPrefix.Mega, 10e6 },
-			{ MetricPrefix.Kilo, 10e3 },
-			{ MetricPrefix.Hecto, 10e2},
-			{ MetricPrefix.Deca, 10e1 },
-			{ MetricPrefix.Base, 10e0 },
-			{ MetricPrefix.Deci, 10e-1 },
-			{ MetricPrefix.Centi, 10e-2 },
-			{ MetricPrefix.Milli, 10e-3},
-			{ MetricPrefix.Micro, 10e-6 },
-			{ MetricPrefix.Nano, 10e-9 },
-			{ MetricPrefix.Pico, 10e-12 },
-			{ MetricPrefix.Femto, 10e-15},
-			{ MetricPrefix.Atto, 10e-18}
+			{ (ushort)MetricPrefix.Exa, 1e18 },
+			{ (ushort)MetricPrefix.Peta, 1e15},
+			{ (ushort)MetricPrefix.Tera, 1e12 },
+			{ (ushort)MetricPrefix.Giga, 1e9 },
+			{ (ushort)MetricPrefix.Mega, 1e6 },
+			{ (ushort)MetricPrefix.Kilo, 1e3 },
+			{ (ushort)MetricPrefix.Hecto, 1e2},
+			{ (ushort)MetricPrefix.Deca, 1e1 },
+			{ (ushort)MetricPrefix.Base, 1e0 },
+			{ (ushort)MetricPrefix.Deci, 1e-1 },
+			{ (ushort)MetricPrefix.Centi, 1e-2 },
+			{ (ushort)MetricPrefix.Milli, 1e-3},
+			{ (ushort)MetricPrefix.Micro, 1e-6 },
+			{ (ushort)MetricPrefix.Nano, 1e-9 },
+			{ (ushort)MetricPrefix.Pico, 1e-12 },
+			{ (ushort)MetricPrefix.Femto, 1e-15},
+			{ (ushort)MetricPrefix.Atto, 1e-18}
 		};
 
 		public static Dictionary<MetricPrefix, string> MetricPrefixSymbol = new Dictionary<MetricPrefix, string>()
@@ -72,10 +74,18 @@ namespace PL.Units
 
 		private const string ShortUnitName = "m";
 
+		#endregion Definitions
+
+		#region Constructor(s)
+
 		public LengthMetric()
 		{
-			UnitType = (ushort)LengthUnit.Metric;
+			Dna.UnitType = (ushort)LengthUnit.Metric;
 		}
+
+		#endregion Constructor(s)
+
+		#region FromString
 
 		private static string mRegularExpressionForSubUnit;
 
@@ -95,7 +105,7 @@ namespace PL.Units
 			asString = PreProcessStringBeforeParsing(asString);
 			var retValue = new LengthMetric
 			{
-				UnitSubType = GetUnitSubTypeFromString(asString),
+				Dna = { UnitSubType = GetUnitSubTypeFromString(asString) },
 				Value = GetValueFromString(asString)
 			};
 			return retValue;
@@ -116,10 +126,13 @@ namespace PL.Units
 			throw new ArgumentException($"Cannot convert {asString} to {nameof(LengthMetric)}");
 		}
 
+		#endregion FromString
 
-		public double ToUnitBaseValue()
-		{
-			return double.NaN;
-		}
+		#region Conversion
+
+		protected override double UnitTypeBaseFactor => 1;
+		protected override Dictionary<ushort, double> UnitSubTypeFactorTable => MetricPrefixFactors;
+
+		#endregion Conversion
 	}
 }

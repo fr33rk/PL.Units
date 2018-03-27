@@ -97,5 +97,19 @@ namespace PL.Units.Tests
 		{
 			Assert.Throws<ArgumentException>(() => new LengthMetric().FromString(null));
 		}
+
+		[Test]
+		public void ConvertValue_FromKmToBase_CorrectValue()
+		{
+			// Arrange
+			var unitUnderTest = (LengthMetric)new LengthMetric().FromString("12 km");
+			const int expectedValue = 12000;
+
+			// Act
+			var actualValue = unitUnderTest.ValueInBaseUnitSubType;
+
+			// Assert
+			Assert.That(actualValue, Is.EqualTo(expectedValue));
+		}
 	}
 }

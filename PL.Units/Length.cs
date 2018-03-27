@@ -22,39 +22,7 @@ namespace PL.Units
 			{ LengthUnit.UsCustomary, 0.3048 }
 		};
 
-		public enum ImperialLengthUnit
-		{
-			Thou,
-			Inch,
-			Foot,
-			Yard,
-			Chain,
-			Furlong,
-			Mile
-		}
 
-		public static Dictionary<ImperialLengthUnit, double> ImperialLengthFactors  = new Dictionary<ImperialLengthUnit, double>()
-		{
-			{ ImperialLengthUnit.Thou, 1 / 12000d },
-			{ ImperialLengthUnit.Inch, 1/ 12d },
-			{ ImperialLengthUnit.Foot, 1 },
-			{ ImperialLengthUnit.Yard, 3 },
-			{ ImperialLengthUnit.Chain, 66 },
-			{ ImperialLengthUnit.Furlong, 660 },
-			{ ImperialLengthUnit.Mile, 5280}
-		};
-
-		public static Dictionary<ImperialLengthUnit, string[]> ImperialSymbols =
-			new Dictionary<ImperialLengthUnit, string[]>()
-			{
-				{ ImperialLengthUnit.Thou, new[] {"thou", "th"} },
-				{ ImperialLengthUnit.Inch, new[] {"inch", "in"} },
-				{ ImperialLengthUnit.Foot, new[] {"foot", "ft"} },
-				{ ImperialLengthUnit.Yard, new[] {"yard", "yd"} },
-				{ ImperialLengthUnit.Chain, new[] {"chain", "ch"} },
-				{ ImperialLengthUnit.Furlong, new[] {"furlong", "fur"} },
-				{ ImperialLengthUnit.Mile, new[] { "mile", "ml"} }
-			};
 
 		public enum UsCustomaryLengthUnit
 		{
@@ -90,70 +58,6 @@ namespace PL.Units
 
 
 
-		private double mValue;
-
-		public double Value
-		{
-			get => mValue;
-			set
-			{
-				mValue = value;
-				//mBaseValue = Convert(mValue, )
-			}
-		}
-
-		private double mBaseValue;
-
-		public double BaseValue
-		{
-			get => mBaseValue;
-			set
-			{
-				mBaseValue = value;
-			}
-		}
-
-		public ushort Prefix { get; private set; }
-
-		private const string mShortUnitName = "m";
-
-		public override string ToString()
-		{
-			return null;
-		}
-
-		//public static Length FromString(string asString)
-		//{
-		//	var retValue = new Length();
-		//	asString = asString.Trim();
-
-		//	retValue.Value = GetValueFromString(asString);
-
-		//	//var listOfPrefixes = string.Join("|", MetricPrefixSymbol.SelectMany(p => p.Value).ToList());
-		//	//var regexExpression = $"({listOfPrefixes})?{mShortUnitName}";
-		//	//values = Regex.Matches(asString, regexExpression);
-		//	//if (values.Count == 1 && values[0].Groups.Count == 2)
-		//	//{
-		//	//	var prefixAsString = values[0].Groups[1].Value;
-		//	//	var prefixKeyValue = MetricPrefixSymbol.FirstOrDefault(p => p.Value == prefixAsString);
-		//	//	if (prefixKeyValue.Value == prefixAsString)
-		//	//	{
-		//	//		retValue.Prefix = Convert.ToUInt16(prefixKeyValue.Key);
-		//	//	}
-		//	//	else
-		//	//	{
-		//	//		throw new ArgumentException($"Cannot convert {asString} to {nameof(Length)}");
-		//	//	}
-		//	//}
-		//	//else
-		//	//{
-		//	//	throw new ArgumentException($"Cannot convert {asString} to {nameof(Length)}");
-		//	//}
-
-		//	return retValue;
-		//}
-
-
 
 		public static Length operator +(Length x, Length y)
 		{
@@ -177,7 +81,7 @@ namespace PL.Units
 
 		protected Length()
 		{
-			QuantityType = QuantityType.Length;
+			Dna.QuantityType = QuantityType.Length;
 		}
 	}
 }
