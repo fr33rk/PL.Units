@@ -98,7 +98,7 @@ namespace PL.Units
 				return Convert.ToUInt16(prefixKeyValue.Key);
 			}
 
-			throw new ArgumentException($"Cannot convert {asString} to {nameof(LengthMetric)}");
+			throw new ArgumentException($"Cannot convert {asString} to {GetType()}");
 		}
 
 		#endregion ToString
