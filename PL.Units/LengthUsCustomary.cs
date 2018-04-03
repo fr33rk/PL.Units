@@ -48,6 +48,13 @@ namespace PL.Units
 			Dna.UnitType = (ushort)LengthUnit.UsCustomary;
 		}
 
+		public LengthUsCustomary(QuantityDna dna, double value)
+			: base(dna, value)
+		{
+			if (dna.UnitType != (ushort)LengthUnit.UsCustomary)
+				throw new ArgumentException($"Invalid DNA. Expected unit type {LengthUnit.UsCustomary}");
+		}
+
 		public override Quantity FromString(string asString)
 		{
 			asString = PreProcessStringBeforeParsing(asString);

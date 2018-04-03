@@ -31,6 +31,36 @@ namespace PL.Units
 
 			throw new ArgumentException($"Cannot convert {asString} to {nameof(Quantity)}");
 		}
+
+		public static Quantity FromDna(QuantityDna dna, double value)
+		{
+			switch (dna.QuantityType)
+			{
+				case QuantityType.Length:
+					return LengthFromDna(dna, value);				
+				case QuantityType.Area:
+				case QuantityType.Volume:
+				case QuantityType.Temperature:
+				case QuantityType.Unspecified:
+				default:
+					throw new ArgumentException($"Cannot create quantity from type {dna.QuantityType}");
+			}
+		}
+
+		public static Quantity LengthFromDna(QuantityDna dna, double value)
+		{
+			switch (dna.UnitType)
+			{
+				case (ushort)Length.LengthUnit.Metric:
+					return new LengthMetric(dna, value);
+				case (ushort)Length.LengthUnit.Imperial:
+					return new LengthImperial(dna, value);
+				case (ushort)Length.LengthUnit.UsCustomary:
+					return new LengthUsCustomary(dna, value);
+				default:
+					throw new ArgumentException($"Cannot create length from unit type {dna.UnitType}");
+			}
+		}
 	}
 
 

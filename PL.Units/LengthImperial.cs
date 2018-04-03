@@ -52,6 +52,13 @@ namespace PL.Units
 			Dna.UnitType = (ushort)LengthUnit.Imperial;
 		}
 
+		public LengthImperial(QuantityDna dna, double value)
+			: base(dna, value)
+		{
+			if (dna.UnitType != (ushort)LengthUnit.Imperial)
+				throw new ArgumentException($"Invalid DNA. Expected unit type {LengthUnit.Imperial}");
+		}
+
 		#endregion Constructors
 
 		#region ToString

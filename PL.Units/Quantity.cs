@@ -19,6 +19,7 @@ namespace PL.Units
 		public QuantityType QuantityType { get; set; }
 		public ushort UnitType { get; set; }
 		public ushort UnitSubType { get; set; }
+		public ushort Precision { get; set; }
 	}
 
 	public abstract class Quantity
@@ -33,6 +34,17 @@ namespace PL.Units
 		public QuantityType QuantityType => Dna.QuantityType;
 		public ushort UnitType => Dna.UnitType;
 		public ushort UnitSubType => Dna.UnitSubType;
+
+		protected Quantity()
+		{
+			// Nothing additional to do here
+		}
+
+		protected Quantity(QuantityDna dna, double value)
+		{
+			Dna = dna;
+			Value = value;
+		}
 
 		private double mValue;
 

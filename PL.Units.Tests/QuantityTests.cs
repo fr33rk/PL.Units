@@ -24,7 +24,6 @@ namespace PL.Units.Tests
 			Assert.Throws<ArgumentException>(() => QuantityFactory.FromString("1 FdL"));
 		}
 
-
 		[Test]
 		// Decimals
 		[TestCase("1", 1d)]
@@ -58,6 +57,31 @@ namespace PL.Units.Tests
 		public void FromString_InvalidString_ExceptionThrown(string asString)
 		{
 			Assert.Throws<ArgumentException>(() => new LengthMetric().FromString(asString + "m"));
+		}
+
+		[Test]
+		[TestCase(QuantityType.Length, (ushort)Length.LengthUnit.Metric, (ushort)LengthMetric.MetricPrefix.Centi, typeof(LengthMetric))]
+		[TestCase(QuantityType.Length, (ushort)Length.LengthUnit.Imperial, (ushort)LengthImperial.ImperialLengthUnit.Chain, typeof(LengthImperial))]
+		[TestCase(QuantityType.Length, (ushort)Length.LengthUnit.UsCustomary, (ushort)LengthUsCustomary.UsCustomaryLengthUnit.Pica, typeof(LengthUsCustomary))]
+		public void FromDna_ValidDna_QuantityCreated(QuantityType actualType, ushort actualSubType, ushort actualPrefix, Type expectedType)
+		{
+			// Arrange
+			var dna = new QuantityDna()
+			{
+				QuantityType = actualType,
+				UnitType = actualSubType,
+				UnitSubType = actualPrefix
+			};
+
+			const int value = 100;
+
+			// Act
+			var actualResult = QuantityFactory.FromDna(dna, value);
+
+			// Assert
+			Assert.That(actualResult, Is.InstanceOf(expectedType));
+			Assert.That(actualResult.Value, Is.EqualTo(value));
+			Assert.That(actualResult.UnitSubType, Is.EqualTo(actualPrefix));
 		}
 	}
 }

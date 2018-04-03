@@ -83,6 +83,13 @@ namespace PL.Units
 			Dna.UnitType = (ushort)LengthUnit.Metric;
 		}
 
+		public LengthMetric(QuantityDna dna, double value)
+			: base(dna, value)
+		{
+			if (dna.UnitType != (ushort)LengthUnit.Metric)
+				throw new ArgumentException($"Invalid DNA. Expected unit type {LengthUnit.Metric}");
+		}
+
 		#endregion Constructor(s)
 
 		#region FromString
