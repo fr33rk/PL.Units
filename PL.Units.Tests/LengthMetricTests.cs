@@ -112,7 +112,5 @@ namespace PL.Units.Tests
 			Assert.That(actualValue, Is.EqualTo(expectedValue));
 		}
 
-		[Test]
-		public void ToString_ValidPrefix_ExpectedOutcome()
 	}
 }

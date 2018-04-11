@@ -14,14 +14,6 @@ namespace PL.Units
         Temperature,
     }
 
-    public struct QuantityDna
-    {
-        public QuantityType QuantityType { get; set; }
-        public ushort UnitType { get; set; }
-        public ushort UnitSubType { get; set; }
-        public ushort Precision { get; set; }
-    }
-
     public abstract class Quantity
     {
         #region Constructor(s)

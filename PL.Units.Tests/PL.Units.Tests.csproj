@@ -50,6 +50,7 @@
     <Compile Include="LengthTests.cs" />
     <Compile Include="LengthUsCustomaryTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QuantityDnaTests.cs" />
     <Compile Include="QuantityTests.cs" />
   </ItemGroup>
   <ItemGroup>
