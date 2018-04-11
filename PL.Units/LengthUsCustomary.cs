@@ -103,5 +103,10 @@ namespace PL.Units
 
 		protected override Dictionary<ushort, double> UnitSubTypeFactorTable => UsCustomaryLengthFactors;
 		protected override double UnitTypeBaseFactor => 0.3048d;
+
+	    protected override Quantity CreateInstanceForClone()
+	    {
+	        return new LengthUsCustomary();
+	    }
 	}
 }

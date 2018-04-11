@@ -83,5 +83,21 @@ namespace PL.Units.Tests
 			Assert.That(actualResult.Value, Is.EqualTo(value));
 			Assert.That(actualResult.UnitSubType, Is.EqualTo(actualPrefix));
 		}
+
+	    [Test]
+        [TestCase("1,0m", "10cm", "1,1m")]
+	    public void AddQuantity_SameUnits_ExpectedResult(string valueA, string valueB, string expectedOutcome)
+	    {
+            // Arrange
+	        var quantityA = QuantityFactory.FromString(valueA);
+	        var quantityB = QuantityFactory.FromString(valueB);
+
+            // Act
+	        var actualResult = quantityA + quantityB;
+
+            // Assert
+            Assert.That(actualResult.ToString(), Is.EqualTo(expectedOutcome));
+
+	    }
 	}
 }

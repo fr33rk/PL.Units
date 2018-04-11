@@ -19,26 +19,6 @@ namespace PL.Units
 			{ LengthUnit.UsCustomary, 0.3048 }
 		};
 
-		public static Length operator +(Length x, Length y)
-		{
-			return null;
-		}
-
-		public static Length operator +(Length x, double y)
-		{
-			return null;
-		}
-
-		public static Length operator -(Length x, Length y)
-		{
-			return null;
-		}
-
-		public static Length operator -(Length x, double y)
-		{
-			return null;
-		}
-
 		protected Length()
 		{
 			Dna.QuantityType = QuantityType.Length;

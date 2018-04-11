@@ -141,5 +141,10 @@ namespace PL.Units
 		protected override Dictionary<ushort, double> UnitSubTypeFactorTable => MetricPrefixFactors;
 
 		#endregion Conversion
+
+	    protected override Quantity CreateInstanceForClone()
+	    {
+	        return new LengthMetric();
+	    }
 	}
 }

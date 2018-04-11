@@ -117,5 +117,10 @@ namespace PL.Units
 		protected override double UnitTypeBaseFactor => 0.3048d;
 
 		#endregion Conversion
+
+	    protected override Quantity CreateInstanceForClone()
+	    {
+	        return new LengthImperial();
+	    }
 	}
 }
