@@ -93,7 +93,7 @@ namespace PL.Units.Tests
 	        var quantityB = QuantityFactory.FromString(valueB);
 
             // Act
-	        var actualResult = quantityA + quantityB;
+	        var actualResult = (quantityA + quantityB).ToString();
 
             // Assert
             Assert.That(actualResult.ToString(), Is.EqualTo(expectedOutcome));

@@ -83,7 +83,7 @@ namespace PL.Units
 
 		private static string mRegularExpressionForSubUnit;
 
-		private static string GetRegularExpressionForSubUnit()
+		protected override string GetRegularExpressionForSubUnit()
 		{
 			if (mRegularExpressionForSubUnit == null)
 			{

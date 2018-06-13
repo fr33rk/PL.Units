@@ -81,6 +81,8 @@ namespace PL.Units
 
         public abstract Quantity FromString(string asString);
 
+        protected abstract string GetRegularExpressionForSubUnit();
+
         protected double GetValueFromString(string asString)
         {
             var values = Regex.Matches(asString, @"\A-?\d*[.,]?\d+(e[+-]\d+)?");
