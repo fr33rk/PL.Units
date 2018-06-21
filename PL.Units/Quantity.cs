@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 
 namespace PL.Units
@@ -33,16 +34,19 @@ namespace PL.Units
 
         #region DNA
 
+
         protected QuantityDna Dna = new QuantityDna()
         {
             QuantityType = QuantityType.Unspecified,
             UnitType = 0,
-            UnitSubType = 0
+            UnitSubType = 0,
+            Precision = 0
         };
 
         public QuantityType QuantityType => Dna.QuantityType;
         public ushort UnitType => Dna.UnitType;
         public ushort UnitSubType => Dna.UnitSubType;
+        public ushort Precision => Dna.Precision;
 
         #endregion DNA
 
@@ -58,8 +62,6 @@ namespace PL.Units
                 mValueInBaseUnitType = ConvertValueToUnitTypeBase();
             }
         }
-
-
 
         public double ValueInBaseUnitSubType
         {
@@ -79,22 +81,45 @@ namespace PL.Units
             }
         }
 
-        public abstract Quantity FromString(string asString);
+        public virtual Quantity FromString(string asString)
+        {
+            var retValue = CreateInstanceForClone();
+
+            asString = PreProcessStringBeforeParsing(asString);
+
+            retValue.Dna.Precision = GetPrecisionFromString(asString);
+            retValue.Dna.UnitSubType = GetUnitSubTypeFromString(asString);
+
+            retValue.Value = GetValueFromString(asString);
+
+            return retValue;
+        }
 
         protected abstract string GetRegularExpressionForSubUnit();
 
         protected double GetValueFromString(string asString)
         {
             var values = Regex.Matches(asString, @"\A-?\d*[.,]?\d+(e[+-]\d+)?");
-            if (values.Count == 1)
-            {
-                var valueAsString = values[0].Value;
-                valueAsString = valueAsString.Replace(',', '.');
-                return Convert.ToDouble(valueAsString, CultureInfo.InvariantCulture);
-            }
+            if (values.Count != 1) throw new ArgumentException($"Cannot convert {asString} to {nameof(Length)}");
 
-            throw new ArgumentException($"Cannot convert {asString} to {nameof(Length)}");
+            var valueAsString = values[0].Value;
+            valueAsString = valueAsString.Replace(',', '.');
+            return Convert.ToDouble(valueAsString, CultureInfo.InvariantCulture);
         }
+
+        internal static ushort GetPrecisionFromString(string asString)
+        {
+            var decimals = Regex.Matches(asString, @"(?<=[.,])\d+");
+
+            if (decimals.Count == 0)
+                return 0;
+            if (decimals.Count == 1)
+                return (ushort)decimals[0].Length;
+
+            throw new ArgumentException($"Cannot determine no of decimals for {asString}");
+        }
+
+        protected abstract ushort GetUnitSubTypeFromString(string asString);
 
         protected string PreProcessStringBeforeParsing(string asString)
         {
@@ -153,5 +178,14 @@ namespace PL.Units
         }
 
         #endregion Operators
+
+        public override string ToString()
+        {
+            return $"{Value.ToString($"F{Dna.Precision}")}{PrefixToString}{SubTypeToString}";
+        }
+
+        protected virtual string PrefixToString => "";
+
+        protected virtual string SubTypeToString => "m";
     }
 }

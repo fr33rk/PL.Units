@@ -107,18 +107,22 @@ namespace PL.Units
 			return mRegularExpressionForSubUnit;
 		}
 
-		public override Quantity FromString(string asString)
-		{
-			asString = PreProcessStringBeforeParsing(asString);
-			var retValue = new LengthMetric
-			{
-				Dna = { UnitSubType = GetUnitSubTypeFromString(asString) },
-				Value = GetValueFromString(asString)
-			};
-			return retValue;
-		}
+		//public override Quantity FromString(string asString)
+		//{
+		//	asString = PreProcessStringBeforeParsing(asString);
+		//	var retValue = new LengthMetric
+		//	{
+		//		Dna =
+		//		{
+		//		    UnitSubType = GetUnitSubTypeFromString(asString),
+  //                  Precision = GetPrecisionFromString(asString)
+		//		},
+		//		Value = GetValueFromString(asString)
+		//	};
+		//	return retValue;
+		//}
 
-		private ushort GetUnitSubTypeFromString(string asString)
+		protected override ushort GetUnitSubTypeFromString(string asString)
 		{
 			var regularExpressionForSubUnit = GetRegularExpressionForSubUnit();
 

@@ -59,6 +59,22 @@ namespace PL.Units.Tests
 			Assert.Throws<ArgumentException>(() => new LengthMetric().FromString(asString + "m"));
 		}
 
+	    [Test]
+        [TestCase("1m", 0)]
+	    [TestCase("1.1m", 1)]
+	    [TestCase("1,1m", 1)]
+	    [TestCase("1,12m", 2)]
+	    [TestCase("1,00m", 2)]
+        public void FromString_ValidString_CorrectDecimals(string asString, int expectedDecimals)
+	    {
+            // Arrange and act
+	        var unitUnderTest = new LengthMetric().FromString(asString);
+
+            // Assert
+	        Assert.That(unitUnderTest.Precision, Is.EqualTo(expectedDecimals));
+	    }
+
+
 		[Test]
 		[TestCase(QuantityType.Length, (ushort)Length.LengthUnit.Metric, (ushort)LengthMetric.MetricPrefix.Centi, typeof(LengthMetric))]
 		[TestCase(QuantityType.Length, (ushort)Length.LengthUnit.Imperial, (ushort)LengthImperial.ImperialLengthUnit.Chain, typeof(LengthImperial))]
@@ -85,9 +101,14 @@ namespace PL.Units.Tests
 		}
 
 	    [Test]
+	    [TestCase("1,00m", "2,00m", "3,00m")]
         [TestCase("1,0m", "10cm", "1,1m")]
-	    public void AddQuantity_SameUnits_ExpectedResult(string valueA, string valueB, string expectedOutcome)
+	    [TestCase("10cm", "1,0m", "110cm")]
+        public void AddQuantity_SameUnits_ExpectedResult(string valueA, string valueB, string expectedOutcome)
 	    {
+            var test = new LengthMetric();
+
+
             // Arrange
 	        var quantityA = QuantityFactory.FromString(valueA);
 	        var quantityB = QuantityFactory.FromString(valueB);
@@ -99,5 +120,5 @@ namespace PL.Units.Tests
             Assert.That(actualResult.ToString(), Is.EqualTo(expectedOutcome));
 
 	    }
-	}
+    }
 }

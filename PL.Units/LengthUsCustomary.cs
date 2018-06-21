@@ -55,18 +55,18 @@ namespace PL.Units
 				throw new ArgumentException($"Invalid DNA. Expected unit type {LengthUnit.UsCustomary}");
 		}
 
-		public override Quantity FromString(string asString)
-		{
-			asString = PreProcessStringBeforeParsing(asString);
-			var retValue = new LengthUsCustomary()
-			{
-				Dna = { UnitSubType = GetUnitSubTypeFromString(asString) },
-				Value = GetValueFromString(asString)
-			};
-			return retValue;
-		}
+		//public override Quantity FromString(string asString)
+		//{
+		//	asString = PreProcessStringBeforeParsing(asString);
+		//	var retValue = new LengthUsCustomary()
+		//	{
+		//		Dna = { UnitSubType = GetUnitSubTypeFromString(asString) },
+		//		Value = GetValueFromString(asString)
+		//	};
+		//	return retValue;
+		//}
 
-		private ushort GetUnitSubTypeFromString(string asString)
+		protected override ushort GetUnitSubTypeFromString(string asString)
 		{
 			var regularExpressionForSubUnit = GetRegularExpressionForSubUnit();
 

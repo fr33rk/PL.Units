@@ -8,7 +8,7 @@ namespace PL.Units
 {
 	public static class QuantityFactory
 	{
-		private static List<Quantity> mQuantities = new List<Quantity>()
+		private static readonly List<Quantity> Quantities = new List<Quantity>()
 		{
 			new LengthMetric(),
 			new LengthImperial()
@@ -16,7 +16,7 @@ namespace PL.Units
 
 		public static Quantity FromString(string asString)
 		{
-			foreach (var quantity in mQuantities)
+			foreach (var quantity in Quantities)
 			{
 				try
 				{
