@@ -63,17 +63,6 @@ namespace PL.Units
 
 		#region ToString
 
-		//public override Quantity FromString(string asString)
-		//{
-		//	asString = PreProcessStringBeforeParsing(asString);
-		//	var retValue = new LengthImperial
-		//	{
-		//		Dna = { UnitSubType = GetUnitSubTypeFromString(asString) },
-		//		Value = GetValueFromString(asString)
-		//	};
-		//	return retValue;
-		//}
-
 		private static string mRegularExpressionForSubUnit;
 
 		protected override string GetRegularExpressionForSubUnit()
@@ -108,6 +97,8 @@ namespace PL.Units
 			throw new ArgumentException($"Cannot convert {asString} to {GetType()}");
 		}
 
+		protected override string PrefixToString => ImperialSymbols[(ImperialLengthUnit)UnitSubType][1];
+
 		#endregion ToString
 
 		#region Conversion
@@ -118,9 +109,9 @@ namespace PL.Units
 
 		#endregion Conversion
 
-	    protected override Quantity CreateInstanceForClone()
-	    {
-	        return new LengthImperial();
-	    }
+		protected override Quantity CreateInstanceForClone()
+		{
+			return new LengthImperial();
+		}
 	}
 }

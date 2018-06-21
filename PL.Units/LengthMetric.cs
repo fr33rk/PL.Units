@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Sockets;
 using System.Text.RegularExpressions;
 
 namespace PL.Units
@@ -107,21 +108,6 @@ namespace PL.Units
 			return mRegularExpressionForSubUnit;
 		}
 
-		//public override Quantity FromString(string asString)
-		//{
-		//	asString = PreProcessStringBeforeParsing(asString);
-		//	var retValue = new LengthMetric
-		//	{
-		//		Dna =
-		//		{
-		//		    UnitSubType = GetUnitSubTypeFromString(asString),
-  //                  Precision = GetPrecisionFromString(asString)
-		//		},
-		//		Value = GetValueFromString(asString)
-		//	};
-		//	return retValue;
-		//}
-
 		protected override ushort GetUnitSubTypeFromString(string asString)
 		{
 			var regularExpressionForSubUnit = GetRegularExpressionForSubUnit();
@@ -139,9 +125,11 @@ namespace PL.Units
 
 		#endregion FromString
 
-		#region Conversion
+	    protected override string PrefixToString => MetricPrefixSymbol[(MetricPrefix)UnitSubType]; 
 
-		protected override double UnitTypeBaseFactor => 1;
+        #region Conversion
+
+        protected override double UnitTypeBaseFactor => 1;
 		protected override Dictionary<ushort, double> UnitSubTypeFactorTable => MetricPrefixFactors;
 
 		#endregion Conversion

@@ -1,20 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 
 namespace PL.Units
 {
-    public enum QuantityType
-    {
-        Unspecified,
-        Length,
-        Area,
-        Volume,
-        Temperature,
-    }
-
     public abstract class Quantity
     {
         #region Constructor(s)
@@ -34,7 +24,6 @@ namespace PL.Units
 
         #region DNA
 
-
         protected QuantityDna Dna = new QuantityDna()
         {
             QuantityType = QuantityType.Unspecified,
@@ -49,6 +38,8 @@ namespace PL.Units
         public ushort Precision => Dna.Precision;
 
         #endregion DNA
+
+        #region Value
 
         private double mValue;
 
@@ -80,6 +71,10 @@ namespace PL.Units
                 mValue = (mValueInBaseUnitType / UnitTypeBaseFactor) / UnitSubTypeFactorTable[Dna.UnitSubType];
             }
         }
+
+        #endregion Value
+
+        #region From String
 
         public virtual Quantity FromString(string asString)
         {
@@ -128,6 +123,21 @@ namespace PL.Units
 
             return asString.Trim();
         }
+
+        #endregion From String
+
+        #region To String
+
+        public override string ToString()
+        {
+            return $"{Value.ToString($"F{Dna.Precision}")}{PrefixToString}{SubTypeToString}";
+        }
+
+        protected abstract string PrefixToString { get; }
+
+        protected virtual string SubTypeToString => "m";
+
+        #endregion To String
 
         protected abstract Dictionary<ushort, double> UnitSubTypeFactorTable { get; }
 
@@ -178,14 +188,5 @@ namespace PL.Units
         }
 
         #endregion Operators
-
-        public override string ToString()
-        {
-            return $"{Value.ToString($"F{Dna.Precision}")}{PrefixToString}{SubTypeToString}";
-        }
-
-        protected virtual string PrefixToString => "";
-
-        protected virtual string SubTypeToString => "m";
     }
 }

@@ -55,17 +55,6 @@ namespace PL.Units
 				throw new ArgumentException($"Invalid DNA. Expected unit type {LengthUnit.UsCustomary}");
 		}
 
-		//public override Quantity FromString(string asString)
-		//{
-		//	asString = PreProcessStringBeforeParsing(asString);
-		//	var retValue = new LengthUsCustomary()
-		//	{
-		//		Dna = { UnitSubType = GetUnitSubTypeFromString(asString) },
-		//		Value = GetValueFromString(asString)
-		//	};
-		//	return retValue;
-		//}
-
 		protected override ushort GetUnitSubTypeFromString(string asString)
 		{
 			var regularExpressionForSubUnit = GetRegularExpressionForSubUnit();
@@ -100,8 +89,9 @@ namespace PL.Units
 			return mRegularExpressionForSubUnit;
 		}
 
+	    protected override string PrefixToString => UsCustomarySymbols[(UsCustomaryLengthUnit)UnitSubType][1];
 
-		protected override Dictionary<ushort, double> UnitSubTypeFactorTable => UsCustomaryLengthFactors;
+        protected override Dictionary<ushort, double> UnitSubTypeFactorTable => UsCustomaryLengthFactors;
 		protected override double UnitTypeBaseFactor => 0.3048d;
 
 	    protected override Quantity CreateInstanceForClone()
