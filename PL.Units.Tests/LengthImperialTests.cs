@@ -108,5 +108,44 @@ namespace PL.Units.Tests
 			// Assert
 			Assert.That(actualValue, Is.EqualTo(expectedValue));
 		}
-	}
+
+        [Test]
+        public void Constructor_WithValidDna_CreatesLengthUsCustomary()
+        {
+            // Arrange
+            var validDna = new QuantityDna
+            {
+                QuantityType = QuantityType.Length,
+                UnitType = (ushort)Length.LengthUnit.Imperial,
+                UnitSubType = (ushort)LengthImperial.ImperialLengthUnit.Inch,
+                Precision = 2
+            };
+
+            // Act
+            var unitUnderTest = new LengthImperial(validDna, 21.09);
+
+            // Assert
+            Assert.That(unitUnderTest.ToString(), Is.EqualTo("21,09in"));
+        }
+
+
+        [Test]
+        public void Constructor_InvalidDna_ThrowsException()
+        {
+            // Arrange
+            var invalidDna = new QuantityDna
+            {
+                QuantityType = QuantityType.Length,
+                UnitType = (ushort)Length.LengthUnit.Metric,
+                UnitSubType = (ushort)LengthImperial.ImperialLengthUnit.Inch,
+                Precision = 2
+            };
+
+            // Act and Assert
+            Assert.Throws<ArgumentException>(() =>
+            {
+                var unused = new LengthImperial(invalidDna, 21.09);
+            });
+        }
+    }
 }

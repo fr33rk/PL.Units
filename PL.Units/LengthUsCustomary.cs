@@ -91,6 +91,8 @@ namespace PL.Units
 
 	    protected override string PrefixToString => UsCustomarySymbols[(UsCustomaryLengthUnit)UnitSubType][1];
 
+	    protected override string SubTypeToShortString => string.Empty;
+
         protected override Dictionary<ushort, double> UnitSubTypeFactorTable => UsCustomaryLengthFactors;
 		protected override double UnitTypeBaseFactor => 0.3048d;
 

@@ -99,13 +99,17 @@ namespace PL.Units
 
 		protected override string PrefixToString => ImperialSymbols[(ImperialLengthUnit)UnitSubType][1];
 
-		#endregion ToString
+	    protected override string SubTypeToShortString => string.Empty;
 
-		#region Conversion
+        #endregion ToString
 
-		protected override Dictionary<ushort, double> UnitSubTypeFactorTable => ImperialLengthFactors;
+        #region Conversion
+
+        protected override Dictionary<ushort, double> UnitSubTypeFactorTable => ImperialLengthFactors;
 
 		protected override double UnitTypeBaseFactor => 0.3048d;
+
+        
 
 		#endregion Conversion
 

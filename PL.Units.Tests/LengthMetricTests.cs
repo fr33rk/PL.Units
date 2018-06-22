@@ -112,5 +112,44 @@ namespace PL.Units.Tests
 			Assert.That(actualValue, Is.EqualTo(expectedValue));
 		}
 
+
+		[Test]
+		public void Constructor_WithValidDna_CreatesLengthMetric()
+		{
+			// Arrange
+		    var validDna = new QuantityDna
+		    {
+		        QuantityType = QuantityType.Length,
+                UnitType = (ushort)Length.LengthUnit.Metric,
+                UnitSubType = (ushort)LengthMetric.MetricPrefix.Base,
+                Precision = 2
+		    };
+
+		    // Act
+            var unitUnderTest = new LengthMetric(validDna, 21.09);
+            
+		    // Assert
+		    Assert.That(unitUnderTest.ToString(), Is.EqualTo("21,09m"));
+		}
+
+
+        [Test]
+        public void Constructor_InvalidDna_ThrowsException()
+        {
+            // Arrange
+            var invalidDna = new QuantityDna
+            {
+                QuantityType = QuantityType.Length,
+                UnitType = (ushort)Length.LengthUnit.Imperial,
+                UnitSubType = (ushort) LengthMetric.MetricPrefix.Base,
+                Precision = 2
+            };
+
+            // Act and Assert
+            Assert.Throws<ArgumentException>(() =>
+            {
+                var unused = new LengthMetric(invalidDna, 21.09);                
+            });
+        }
 	}
 }

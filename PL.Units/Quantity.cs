@@ -130,12 +130,12 @@ namespace PL.Units
 
         public override string ToString()
         {
-            return $"{Value.ToString($"F{Dna.Precision}")}{PrefixToString}{SubTypeToString}";
+            return $"{Value.ToString($"F{Dna.Precision}")}{PrefixToString}{SubTypeToShortString}";
         }
 
         protected abstract string PrefixToString { get; }
 
-        protected virtual string SubTypeToString => "m";
+        protected abstract string SubTypeToShortString { get; }
 
         #endregion To String
 

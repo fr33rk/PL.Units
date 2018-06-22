@@ -73,8 +73,6 @@ namespace PL.Units
 			{MetricPrefix.Atto, "a"}
 		};
 
-		private const string ShortUnitName = "m";
-
 		#endregion Definitions
 
 		#region Constructor(s)
@@ -102,7 +100,7 @@ namespace PL.Units
 			if (mRegularExpressionForSubUnit == null)
 			{
 				var listOfPrefixes = string.Join("|", MetricPrefixSymbol.Values.Where(v => !string.IsNullOrEmpty(v)).ToList());
-				mRegularExpressionForSubUnit = $@"(?<=( |\d))({listOfPrefixes})?{ShortUnitName}\z";
+				mRegularExpressionForSubUnit = $@"(?<=( |\d))({listOfPrefixes})?{SubTypeToShortString}\z";
 			}
 
 			return mRegularExpressionForSubUnit;
@@ -125,7 +123,9 @@ namespace PL.Units
 
 		#endregion FromString
 
-	    protected override string PrefixToString => MetricPrefixSymbol[(MetricPrefix)UnitSubType]; 
+		protected override string PrefixToString => MetricPrefixSymbol[(MetricPrefix)UnitSubType];
+
+	    protected override string SubTypeToShortString => "m";
 
         #region Conversion
 
@@ -134,9 +134,9 @@ namespace PL.Units
 
 		#endregion Conversion
 
-	    protected override Quantity CreateInstanceForClone()
-	    {
-	        return new LengthMetric();
-	    }
+		protected override Quantity CreateInstanceForClone()
+		{
+			return new LengthMetric();
+		}
 	}
 }
