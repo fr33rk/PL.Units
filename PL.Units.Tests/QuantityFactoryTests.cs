@@ -26,7 +26,6 @@ namespace PL.Units.Tests
             Assert.Throws<ArgumentException>(() => QuantityFactory.FromString("1 kg"));
         }
 
-
         [Test]
         [TestCase(QuantityType.Length, (ushort)Length.LengthUnit.Metric, typeof(LengthMetric))]
         [TestCase(QuantityType.Length, (ushort)Length.LengthUnit.Imperial, typeof(LengthImperial))]
@@ -45,6 +44,56 @@ namespace PL.Units.Tests
 
             // Assert
             Assert.That(result.GetType(), Is.EqualTo(expectedType));
+        }
+
+        [Test]
+        public void FromDna_InvalidDna_ThrowsException()
+        {
+            // Arrange
+            // Arrange
+            var dna = new QuantityDna
+            {
+                QuantityType = (QuantityType)ushort.MaxValue,
+            };
+
+            // Act and assert
+            Assert.Throws<ArgumentException>(() => QuantityFactory.FromDna(dna, 0));
+        }
+
+
+        [Test]
+        [TestCase(QuantityType.Length, (ushort)Length.LengthUnit.Metric, typeof(LengthMetric))]
+        [TestCase(QuantityType.Length, (ushort)Length.LengthUnit.Imperial, typeof(LengthImperial))]
+        [TestCase(QuantityType.Length, (ushort)Length.LengthUnit.UsCustomary, typeof(LengthUsCustomary))]
+        public void LengthFromDna_ValidDna_CreatesQuantity(QuantityType type, ushort unitType, Type expectedType)
+        {
+            // Arrange
+            var dna = new QuantityDna
+            {
+                QuantityType = type,
+                UnitType = unitType
+            };
+
+            // Act
+            var result = QuantityFactory.LengthFromDna(dna, 0);
+
+            // Assert
+            Assert.That(result.GetType(), Is.EqualTo(expectedType));
+        }
+
+        [Test]
+        public void LengthFromDna_InvalidDna_ThrowsException()
+        {
+            // Arrange
+            // Arrange
+            var dna = new QuantityDna
+            {
+                QuantityType = (QuantityType)ushort.MaxValue,
+                UnitType = ushort.MaxValue
+            };
+
+            // Act and assert
+            Assert.Throws<ArgumentException>(() => QuantityFactory.LengthFromDna(dna, 0));
         }
     }
 }
