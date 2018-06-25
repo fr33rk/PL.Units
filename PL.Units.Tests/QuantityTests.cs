@@ -119,5 +119,73 @@ namespace PL.Units.Tests
             // Assert
             Assert.That(actualResult.ToString(), Is.EqualTo(expectedOutcome));
         }
+
+
+        [Test]
+        public void AddQuantity_DifferentTypes_ThrowException()
+        {
+            Assert.Ignore("There are no other quantity types to test with yet.");
+
+            // Arrange
+            
+            // Act
+
+            // Assert
+        }
+
+
+        [Test]
+        [TestCase("1,00m", 2, "3,00m")]
+        [TestCase("1,00m", 0.2, "1,20m")]
+        [TestCase("1,00m", 0.02, "1,02m")]
+        [TestCase("1,00m", 0.002, "1,00m")]
+        public void AddDouble_DifferentUnits_ExpectedBehavior(string valueA, double valueB, string expectedOutcome)
+        {
+            // Arrange
+            var quantityA = QuantityFactory.FromString(valueA);
+
+            // Act
+            var actualResult = quantityA + valueB;
+
+            // Assert
+            Assert.That(actualResult.ToString(), Is.EqualTo(expectedOutcome));
+        }
+
+        [Test]
+        [TestCase("1,00m", "2,00m", "-1,00m")]
+        [TestCase("1,0m", "10cm", "0,9m")]
+        [TestCase("10cm", "1,0m", "-90cm")]
+        [TestCase("1.00 cm", "1 inch", "-1,54cm")]
+        public void SubtractQuantity_SameUnits_ExpectedResult(string valueA, string valueB, string expectedOutcome)
+        {
+            var test = new LengthMetric();
+
+            // Arrange
+            var quantityA = QuantityFactory.FromString(valueA);
+            var quantityB = QuantityFactory.FromString(valueB);
+
+            // Act
+            var actualResult = (quantityA - quantityB).ToString();
+
+            // Assert
+            Assert.That(actualResult, Is.EqualTo(expectedOutcome));
+        }
+
+        [Test]
+        [TestCase("1,00m", 2, "-1,00m")]
+        [TestCase("1,00m", 0.2, "0,80m")]
+        [TestCase("1,00m", 0.02, "0,98m")]
+        [TestCase("1,00m", 0.002, "1,00m")]
+        public void SubtractDouble_DifferentUnits_ExpectedBehavior(string valueA, double valueB, string expectedOutcome)
+        {
+            // Arrange
+            var quantityA = QuantityFactory.FromString(valueA);
+
+            // Act
+            var actualResult = quantityA - valueB;
+
+            // Assert
+            Assert.That(actualResult.ToString(), Is.EqualTo(expectedOutcome));
+        }
     }
 }

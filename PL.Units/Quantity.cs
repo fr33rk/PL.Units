@@ -174,17 +174,23 @@ namespace PL.Units
 
         public static Quantity operator +(Quantity x, double y)
         {
-            return null;
+            var result = x.Clone();
+            result.Value += y;
+            return result;
         }
 
         public static Quantity operator -(Quantity x, Quantity y)
         {
-            return null;
+            var result = x.Clone();
+            result.ValueInBaseUnitType -= y.ValueInBaseUnitType;
+            return result;
         }
 
         public static Quantity operator -(Quantity x, double y)
         {
-            return null;
+            var result = x.Clone();
+            result.Value -= y;
+            return result;
         }
 
         #endregion Operators
