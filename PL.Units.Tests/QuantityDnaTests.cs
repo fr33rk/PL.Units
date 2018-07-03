@@ -13,7 +13,7 @@ namespace PL.Units.Tests
             {
                 QuantityType = QuantityType.Length,
                 UnitType = (ushort)Length.LengthUnit.Metric,
-                UnitSubType = (ushort)LengthMetric.MetricPrefix.Centi,
+                UnitSubType = (ushort)QuantityMetric.MetricPrefix.Centi,
                 Precision = 2
             };
 
@@ -35,7 +35,7 @@ namespace PL.Units.Tests
             // Assert
             Assert.That(actualResult.QuantityType, Is.EqualTo(QuantityType.Length));
             Assert.That(actualResult.UnitType, Is.EqualTo((ushort)Length.LengthUnit.Metric));
-            Assert.That(actualResult.UnitSubType, Is.EqualTo((ushort)LengthMetric.MetricPrefix.Centi));
+            Assert.That(actualResult.UnitSubType, Is.EqualTo((ushort)QuantityMetric.MetricPrefix.Centi));
             Assert.That(actualResult.Precision, Is.EqualTo(2));
         }
     }

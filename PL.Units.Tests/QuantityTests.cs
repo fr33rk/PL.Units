@@ -84,7 +84,7 @@ namespace PL.Units.Tests
         }
 
         [Test]
-        [TestCase(QuantityType.Length, (ushort)Length.LengthUnit.Metric, (ushort)LengthMetric.MetricPrefix.Centi, typeof(LengthMetric))]
+        [TestCase(QuantityType.Length, (ushort)Length.LengthUnit.Metric, (ushort)QuantityMetric.MetricPrefix.Centi, typeof(LengthMetric))]
         [TestCase(QuantityType.Length, (ushort)Length.LengthUnit.Imperial, (ushort)LengthImperial.ImperialLengthUnit.Chain, typeof(LengthImperial))]
         [TestCase(QuantityType.Length, (ushort)Length.LengthUnit.UsCustomary, (ushort)LengthUsCustomary.UsCustomaryLengthUnit.Pica, typeof(LengthUsCustomary))]
         public void FromDna_ValidDna_QuantityCreated(QuantityType actualType, ushort actualSubType, ushort actualPrefix, Type expectedType)

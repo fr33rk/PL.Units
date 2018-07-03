@@ -52,24 +52,24 @@ namespace PL.Units.Tests
 		}
 
 		[Test]
-		[TestCase("1 Em", LengthMetric.MetricPrefix.Exa)]
-		[TestCase("1 Pm", LengthMetric.MetricPrefix.Peta)]
-		[TestCase("1 Tm", LengthMetric.MetricPrefix.Tera)]
-		[TestCase("1 Gm", LengthMetric.MetricPrefix.Giga)]
-		[TestCase("1 Mm", LengthMetric.MetricPrefix.Mega)]
-		[TestCase("1 km", LengthMetric.MetricPrefix.Kilo)]
-		[TestCase("1 hm", LengthMetric.MetricPrefix.Hecto)]
-		[TestCase("1 dam", LengthMetric.MetricPrefix.Deca)]
-		[TestCase("1 m", LengthMetric.MetricPrefix.Base)]
-		[TestCase("1 dm", LengthMetric.MetricPrefix.Deci)]
-		[TestCase("1 cm", LengthMetric.MetricPrefix.Centi)]
-		[TestCase("1 mm", LengthMetric.MetricPrefix.Milli)]
-		[TestCase("1 μm", LengthMetric.MetricPrefix.Micro)]
-		[TestCase("1 nm", LengthMetric.MetricPrefix.Nano)]
-		[TestCase("1 pm", LengthMetric.MetricPrefix.Pico)]
-		[TestCase("1 fm", LengthMetric.MetricPrefix.Femto)]
-		[TestCase("1 am", LengthMetric.MetricPrefix.Atto)]
-		public void FromString_ValidString_CorrectUnitSubType(string asString, LengthMetric.MetricPrefix expectedMetricPrefix)
+		[TestCase("1 Em", QuantityMetric.MetricPrefix.Exa)]
+		[TestCase("1 Pm", QuantityMetric.MetricPrefix.Peta)]
+		[TestCase("1 Tm", QuantityMetric.MetricPrefix.Tera)]
+		[TestCase("1 Gm", QuantityMetric.MetricPrefix.Giga)]
+		[TestCase("1 Mm", QuantityMetric.MetricPrefix.Mega)]
+		[TestCase("1 km", QuantityMetric.MetricPrefix.Kilo)]
+		[TestCase("1 hm", QuantityMetric.MetricPrefix.Hecto)]
+		[TestCase("1 dam", QuantityMetric.MetricPrefix.Deca)]
+		[TestCase("1 m", QuantityMetric.MetricPrefix.Base)]
+		[TestCase("1 dm", QuantityMetric.MetricPrefix.Deci)]
+		[TestCase("1 cm", QuantityMetric.MetricPrefix.Centi)]
+		[TestCase("1 mm", QuantityMetric.MetricPrefix.Milli)]
+		[TestCase("1 μm", QuantityMetric.MetricPrefix.Micro)]
+		[TestCase("1 nm", QuantityMetric.MetricPrefix.Nano)]
+		[TestCase("1 pm", QuantityMetric.MetricPrefix.Pico)]
+		[TestCase("1 fm", QuantityMetric.MetricPrefix.Femto)]
+		[TestCase("1 am", QuantityMetric.MetricPrefix.Atto)]
+		public void FromString_ValidString_CorrectUnitSubType(string asString, QuantityMetric.MetricPrefix expectedMetricPrefix)
 		{
 			// Act
 			var unitUnderTest = new LengthMetric().FromString(asString);
@@ -79,9 +79,9 @@ namespace PL.Units.Tests
 		}
 
 		[Test]
-		[TestCase("  1 Em", LengthMetric.MetricPrefix.Exa)]
-		[TestCase("1 Em  ", LengthMetric.MetricPrefix.Exa)]
-		public void FromString_ValidStringWithSpaces_CorrectUnitSubType(string asString, LengthMetric.MetricPrefix expectedMetricPrefix)
+		[TestCase("  1 Em", QuantityMetric.MetricPrefix.Exa)]
+		[TestCase("1 Em  ", QuantityMetric.MetricPrefix.Exa)]
+		public void FromString_ValidStringWithSpaces_CorrectUnitSubType(string asString, QuantityMetric.MetricPrefix expectedMetricPrefix)
 		{
 			// Act
 			var unitUnderTest = new LengthMetric().FromString(asString);
@@ -127,7 +127,7 @@ namespace PL.Units.Tests
 			{
 				QuantityType = QuantityType.Length,
 				UnitType = (ushort)Length.LengthUnit.Metric,
-				UnitSubType = (ushort)LengthMetric.MetricPrefix.Base,
+				UnitSubType = (ushort)QuantityMetric.MetricPrefix.Base,
 				Precision = 2
 			};
 
@@ -146,7 +146,7 @@ namespace PL.Units.Tests
 			{
 				QuantityType = QuantityType.Length,
 				UnitType = (ushort)Length.LengthUnit.Imperial,
-				UnitSubType = (ushort)LengthMetric.MetricPrefix.Base,
+				UnitSubType = (ushort)QuantityMetric.MetricPrefix.Base,
 				Precision = 2
 			};
 
