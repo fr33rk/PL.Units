@@ -1,11 +1,19 @@
 ﻿using NUnit.Framework;
 using System;
+using System.Globalization;
+using System.Threading;
 
 namespace PL.Units.Tests
 {
     public class QuantityTests
     {
-        [Test]
+	    [SetUp]
+	    public void SetUp()
+	    {
+		    Thread.CurrentThread.CurrentCulture = new CultureInfo("nl");
+	    }
+
+		[Test]
         [TestCase("1 km")]
         [TestCase("1 mile")]
         [TestCase("1 yd")]

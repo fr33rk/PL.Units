@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Globalization;
+using System.Threading;
 using NUnit.Framework;
 using NUnit.Framework.Internal;
 
@@ -7,7 +9,13 @@ namespace PL.Units.Tests
     [TestFixture]
     public class LengthUsCustomaryTests
     {
-        [Test]
+	    [SetUp]
+	    public void SetUp()
+	    {
+		    Thread.CurrentThread.CurrentCulture = new CultureInfo("nl");
+	    }
+
+		[Test]
         public void FromString_ValidString_CorrectQuantityType()
         {
             // Act

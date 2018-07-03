@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using NUnit.Framework;
 using NUnit.Framework.Internal;
@@ -11,6 +13,12 @@ namespace PL.Units.Tests
 	[TestFixture]
     public class LengthImperialTests
     {
+	    [SetUp]
+	    public void SetUp()
+	    {
+		    Thread.CurrentThread.CurrentCulture = new CultureInfo("nl");
+		}
+
 		[Test]
 		public void FromString_ValidString_CorrectQuantityType()
 		{

@@ -1,11 +1,19 @@
-﻿using System;
-using NUnit.Framework;
+﻿using NUnit.Framework;
+using System;
+using System.Globalization;
+using System.Threading;
 
 namespace PL.Units.Tests
 {
 	[TestFixture]
 	public class LengthMetricTests
 	{
+		[SetUp]
+		public void SetUp()
+		{
+			Thread.CurrentThread.CurrentCulture = new CultureInfo("nl");
+		}
+
 		[Test]
 		public void FromString_ValidString_CorrectQuantityType()
 		{
@@ -80,7 +88,6 @@ namespace PL.Units.Tests
 
 			// Assert
 			Assert.That(unitUnderTest.UnitSubType, Is.EqualTo((ushort)expectedMetricPrefix));
-
 		}
 
 		[Test]
@@ -112,44 +119,42 @@ namespace PL.Units.Tests
 			Assert.That(actualValue, Is.EqualTo(expectedValue));
 		}
 
-
 		[Test]
 		public void Constructor_WithValidDna_CreatesLengthMetric()
 		{
 			// Arrange
-		    var validDna = new QuantityDna
-		    {
-		        QuantityType = QuantityType.Length,
-                UnitType = (ushort)Length.LengthUnit.Metric,
-                UnitSubType = (ushort)LengthMetric.MetricPrefix.Base,
-                Precision = 2
-		    };
+			var validDna = new QuantityDna
+			{
+				QuantityType = QuantityType.Length,
+				UnitType = (ushort)Length.LengthUnit.Metric,
+				UnitSubType = (ushort)LengthMetric.MetricPrefix.Base,
+				Precision = 2
+			};
 
-		    // Act
-            var unitUnderTest = new LengthMetric(validDna, 21.09);
-            
-		    // Assert
-		    Assert.That(unitUnderTest.ToString(), Is.EqualTo("21,09m"));
+			// Act
+			var unitUnderTest = new LengthMetric(validDna, 21.09);
+
+			// Assert
+			Assert.That(unitUnderTest.ToString(), Is.EqualTo("21,09m"));
 		}
 
+		[Test]
+		public void Constructor_InvalidDna_ThrowsException()
+		{
+			// Arrange
+			var invalidDna = new QuantityDna
+			{
+				QuantityType = QuantityType.Length,
+				UnitType = (ushort)Length.LengthUnit.Imperial,
+				UnitSubType = (ushort)LengthMetric.MetricPrefix.Base,
+				Precision = 2
+			};
 
-        [Test]
-        public void Constructor_InvalidDna_ThrowsException()
-        {
-            // Arrange
-            var invalidDna = new QuantityDna
-            {
-                QuantityType = QuantityType.Length,
-                UnitType = (ushort)Length.LengthUnit.Imperial,
-                UnitSubType = (ushort) LengthMetric.MetricPrefix.Base,
-                Precision = 2
-            };
-
-            // Act and Assert
-            Assert.Throws<ArgumentException>(() =>
-            {
-                var unused = new LengthMetric(invalidDna, 21.09);                
-            });
-        }
+			// Act and Assert
+			Assert.Throws<ArgumentException>(() =>
+			{
+				var unused = new LengthMetric(invalidDna, 21.09);
+			});
+		}
 	}
 }
