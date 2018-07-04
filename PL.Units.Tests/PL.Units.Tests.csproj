@@ -53,6 +53,7 @@
     <Compile Include="QuantityDnaTests.cs" />
     <Compile Include="QuantityFactoryTests.cs" />
     <Compile Include="QuantityTests.cs" />
+    <Compile Include="VolumeMetricTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -79,7 +79,7 @@ namespace PL.Units
 		public static ushort GetUnitSubTypeFromString(string asString, string regularExpressionForSubUnit)
 		{
 			var values = Regex.Matches(asString, regularExpressionForSubUnit);
-			if (values.Count == 1 && values[0].Groups.Count == 3)
+			if (values.Count == 1)
 			{
 				var prefixAsString = values[0].Groups[2].Value;
 				var prefixKeyValue = MetricPrefixSymbol.FirstOrDefault(p => p.Value == prefixAsString);
